@@ -1,0 +1,285 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Tajawal", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+video {
+  margin: 0;
+}
+
+.card {
+  min-width: 15%;
+  height: 95%;
+  background-color: white;
+  font-size: 20px;
+  box-shadow: 0px 10px 5px rgb(0 0 0 /30%);
+}
+
+.header {
+  background: linear-gradient(45deg, #5709ee, #7a37bf);
+  color: white;
+}
+.header h1 {
+  font-weight: 400;
+  padding: 5px;
+}
+#citiesName {
+  font-size: 150px;
+  font-weight: 400;
+}
+#timeClock {
+  font-size: 80px;
+  font-weight: 400;
+  direction: ltr;
+  margin-top: 15px;
+}
+
+hr {
+  margin: 0px 50px;
+  border-color: #5200e1;
+}
+#date {
+  font-size: 40px;
+  font-weight: 400;
+  display: flex;
+  justify-content: space-around;
+  direction: rtl;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+.body {
+  background-image: url(imges/image.jpg);
+  background-repeat: no-repeat;
+  background-size: 260px;
+  background-color: #f6f6f6;
+}
+
+.time {
+  font-size: 40px;
+  color: #3e04a4;
+  direction: ltr;
+}
+
+select option {
+  background-color: #7a37bf;
+}
+video {
+  border: none;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+}
+.container {
+  position: relative;
+  height: 100vh;
+}
+
+#containerCity {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.containerCard {
+  height: 300px;
+  margin: 0 40px;
+  margin-top: 40px;
+  justify-content: space-around;
+}
+
+#cities-select {
+  border: 2px solid #5200e1;
+  width: 300px;
+  height: 45px;
+  font-size: 25px;
+  font-family: Tajawal;
+  background: #5200e1;
+  color: white;
+  border-radius: 20px;
+  padding-top: 0px;
+  padding-right: 8px;
+}
+.containerSelect {
+  margin-top: 80px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(37, 105, 222);
+}
+
+@media (max-width: 500px) {
+  #citiesName {
+    font-size: 100px;
+  }
+  #timeClock {
+    font-size: 60px;
+    margin-top: 15px;
+  }
+  #date {
+    font-size: 30px;
+  }
+  .containerCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: 50px;
+  }
+
+  .card {
+    min-width: 60%;
+  }
+  #cities-select {
+    width: 200px;
+  }
+  .time {
+    font-size: 30px;
+  }
+
+  #date {
+    font-size: 20px;
+  }
+  #timeClock {
+    font-size: 30px;
+  }
+  #citiesName {
+    font-size: 50px;
+  }
+  .containerSelect {
+    position: fixed;
+    right: -62px;
+    top: 45px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 768px) and (min-width: 501px) {
+  .time {
+    font-size: 35px;
+  }
+  #cities-select {
+    width: 250px;
+  }
+  #citiesName {
+    font-size: 70px;
+  }
+  #timeClock {
+    font-size: 50px;
+    margin-top: 15px;
+  }
+  #date {
+    font-size: 25px;
+  }
+  .containerCard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 13px;
+    row-gap: 50px;
+  }
+  .card {
+    min-width: 35%;
+  }
+  #container {
+    height: 120vh;
+  }
+  .containerSelect {
+    position: fixed;
+    right: -95px;
+    top: 45px;
+    transform: rotate(90deg);
+  }
+}
+@media (max-width: 992px) and (min-width: 769px) {
+  #citiesName {
+    font-size: 100px;
+  }
+  #timeClock {
+    font-size: 60px;
+    margin-top: 15px;
+  }
+  #date {
+    font-size: 30px;
+  }
+  .containerCard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 13px;
+    row-gap: 50px;
+  }
+  .card {
+    min-width: 26%;
+  }
+  #cities-select {
+    position: absolute;
+    top: 310px;
+  }
+  .containerSelect {
+    position: relative;
+  }
+  #container {
+    height: 60vh;
+  }
+}
+@media (max-width: 1300px) and (min-width: 993px) {
+  #citiesName {
+    font-size: 100px;
+  }
+  #timeClock {
+    font-size: 60px;
+    margin-top: 15px;
+  }
+  #date {
+    font-size: 30px;
+  }
+  .containerCard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 13px;
+    row-gap: 50px;
+  }
+
+  .card {
+    min-width: 21%;
+  }
+
+  #container {
+    height: 60vh;
+  }
+  .containerSelect {
+    margin-top: 20px;
+  }
+}

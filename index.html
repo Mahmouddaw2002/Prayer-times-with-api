@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" style="direction: rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prayer-times</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="index.css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <!-- CITY NAME -->
+      <div style="color: #5200e1">
+        <div id="containerCity">
+          <h1 id="citiesName">القدس</h1>
+          <h1 id="timeClock">Loading...</h1>
+        </div>
+        <h6 id="date">...Loading</h6>
+      </div>
+      <!--// CITY NAME //-->
+      <hr />
+
+      <!-- PRAYER TIMINGS -->
+
+      <div class="center containerCard">
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>الفجر</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="fajer-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>الشروق</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="sunrise-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>الظهر</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="dhuhr-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>العصر</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="asr-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>المغرب</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="sunset-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+
+        <!-- CARD -->
+        <div class="card">
+          <div class="header">
+            <h1>العشاء</h1>
+          </div>
+
+          <div class="body center">
+            <h1 class="time" id="isha-time">Loading...</h1>
+          </div>
+        </div>
+        <!--// CARD //-->
+      </div>
+
+      <!--// PRAYER TIMINGS //-->
+
+      <!-- CHANGE CITY SELECT -->
+
+      <div class="center containerSelect">
+        <select id="cities-select"></select>
+      </div>
+
+      <!--// CHANGE CITY SELECT //-->
+      <video src="imges/video.mp4" autoplay muted loop preload="auto"></video>
+    </div>
+
+    <script src="node_modules/axios/dist/axios.js"></script>
+    <script>
+      let video = document.querySelector("video");
+      video.playbackRate = 1;
+
+      const cities = [
+        {
+          arabicName: "القدس",
+          name: "Jerusalem",
+        },
+        {
+          arabicName: "بيت لحم",
+          name: "Bethlehem",
+        },
+        {
+          arabicName: "غزة",
+          name: "North Gaza",
+        },
+
+        {
+          arabicName: "الخليل",
+          name: "Hebron",
+        },
+
+        {
+          arabicName: "نابلس",
+          name: "Nablus",
+        },
+
+        {
+          arabicName: "رام الله",
+          name: "Ramallah",
+        },
+
+        {
+          arabicName: "سلفيت",
+          name: "Salfit",
+        },
+
+        {
+          arabicName: "رفح",
+          name: "Rafah",
+        },
+      ];
+
+      for (let city of cities) {
+        const content = `
+        <option>${city.arabicName}</option>
+        `;
+        document.getElementById("cities-select").innerHTML += content;
+      }
+
+      document
+        .getElementById("cities-select")
+        .addEventListener("change", function () {
+          let cityName = "";
+          for (let city of cities) {
+            if (city.arabicName == this.value) {
+              cityName = city.name;
+              document.getElementById("citiesName").innerHTML = city.arabicName;
+            }
+          }
+
+          getPrayersTimingOfCity(cityName);
+        });
+
+      function getPrayersTimingOfCity(cityName) {
+        const params = {
+          country: "PS",
+          city: cityName,
+        };
+
+        axios
+          .get("http://api.aladhan.com/v1/timingsByCity", {
+            params: params,
+          })
+          .then(function (response) {
+            const apiData = response.data.data;
+            fillTimeForPrayer("fajer-time", apiData.timings.Fajr);
+            console.log(apiData.timings.Fajr);
+            fillTimeForPrayer("sunrise-time", apiData.timings.Sunrise);
+            fillTimeForPrayer("dhuhr-time", apiData.timings.Dhuhr);
+            fillTimeForPrayer("asr-time", apiData.timings.Asr);
+            fillTimeForPrayer("sunset-time", apiData.timings.Sunset);
+            fillTimeForPrayer("isha-time", apiData.timings.Isha);
+
+            const readableDateYear = apiData.date.hijri.year;
+            const readableDateMonth = apiData.date.hijri.month.ar;
+            const readableDateWeekday = apiData.date.hijri.weekday.ar;
+            const readableDateDay = apiData.date.hijri.day;
+            const readableDateReadable = apiData.date.readable;
+
+            const date =
+              readableDateReadable +
+              " | " +
+              readableDateWeekday +
+              " | " +
+              readableDateDay +
+              " | " +
+              readableDateMonth +
+              " | " +
+              readableDateYear;
+            fillTimeDataForPrayer("date", date);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
+      getPrayersTimingOfCity("Jerusalem");
+
+      function fillTimeForPrayer(id, time) {
+        var ts = time;
+        var H = +ts.substr(0, 2);
+        var h = H % 12 || 12;
+        h = h < 10 ? "0" + h : h;
+        var ampm = H < 12 ? " AM " : " PM ";
+        ts = h + ts.substr(2, 3) + ampm;
+        document.getElementById(id).innerHTML = ts;
+      }
+
+      function fillTimeDataForPrayer(id, date) {
+        document.getElementById(id).innerHTML = date;
+      }
+
+      function startTime() {
+        const today = new Date();
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        var meridian = h >= 12 ? "PM" : "AM";
+        h = h % 12;
+        h = h ? h : 12;
+        m = m < 10 ? "0" + m : m;
+        s = s < 10 ? "0" + s : s;
+        var strTime = h + ":" + m + ":" + s + " " + meridian;
+        document.getElementById("timeClock").innerText = strTime;
+        setTimeout(startTime, 1000);
+      }
+
+      startTime();
+    </script>
+  </body>
+</html>
